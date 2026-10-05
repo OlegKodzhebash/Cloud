@@ -22,9 +22,7 @@
 
 Также настроен бюджет `ZeroSpend` по шаблону Zero spend budget: AWS пришлёт письмо на `oleg.cela@gmail.com`, как только аккаунт начнёт тратить деньги.
 
-> 📸 **Нужен скриншот:** бюджет `ZeroSpend` в списке Budgets (Billing and Cost Management → Budgets).
-
-![Рисунок 1 — Бюджет ZeroSpend](img/1-budget.png)
+![Рисунок 1 — Бюджет ZeroSpend](1-zero-spend.png)
 
 *Рисунок 1 — Бюджет ZeroSpend в списке Budgets*
 
@@ -68,13 +66,12 @@ systemctl enable --now nginx
 
 После запуска экземпляр перешёл в состояние Running, все проверки Status check пройдены. Публичный IP-адрес экземпляра: `3.125.3.200`, ID экземпляра: `i-07e0526a734dd5f44`.
 
-> 📸 **Нужно доснять:** список Instances с экземпляром `webserver` в состоянии **Running** и колонкой Status check `3/3 checks passed`. Ниже вставлен скриншот с проверками, но на нём не видно состояние Running. Можно оставить его, если преподавателя это устроит.
 
-![Рисунок 2 — Экземпляр webserver, Status checks](img/2-instance-status.png)
+![Рисунок 2 — Экземпляр webserver, Status checks](2-instance-status.png)
 
 *Рисунок 2 — Экземпляр `i-07e0526a734dd5f44 (webserver)`: все проверки статуса пройдены*
 
-![Рисунок 3 — Страница nginx](img/3-nginx-welcome.png)
+![Рисунок 3 — Страница nginx](3-nginx-welcome.png)
 
 *Рисунок 3 — Приветственная страница nginx по публичному IP*
 
@@ -95,13 +92,7 @@ User data — это скрипт, который передаётся экзе�
 - **System log** (Actions → Monitor and troubleshoot → Get system log). В нём были найдены строки с установкой nginx из скрипта User data: в конце лога видно, как cloud-init создаёт ссылку для автозапуска `nginx.service` и завершает работу (`cloud-init ... finished`);
 - **Instance screenshot** (Actions → Monitor and troubleshoot → Get instance screenshot).
 
-> 📸 **Нужно доснять:** вкладка **Monitoring** экземпляра (графики CloudWatch). EC2 → Instances → ваш экземпляр → Monitoring.
-
-![Рисунок 4 — Вкладка Monitoring](img/4-monitoring.png)
-
-*Рисунок 4 — Метрики CloudWatch на вкладке Monitoring*
-
-![Рисунок 5 — System log](img/5-system-log.png)
+![Рисунок 5 — System log](5-system-log.png)
 
 *Рисунок 5 — System log: создание ссылки для автозапуска nginx и завершение cloud-init*
 
@@ -140,15 +131,10 @@ systemctl status nginx
 
 Служба nginx находится в состоянии `active (running)`.
 
-![Рисунок 6 — SSH-подключение](img/6-ssh.png)
+![Рисунок 6 — SSH-подключение](6-ssh.png)
 
 *Рисунок 6 — Успешное подключение по SSH (видно приглашение `[ec2-user@ip-172-31-24-219 ~]$`)*
 
-> 📸 **Нужно доснять:** подключитесь по SSH ещё раз, выполните `systemctl status nginx` и сделайте скриншот со статусом `active (running)`. Вставьте его сюда как Рисунок 7 (`img/6b-nginx-status.png`).
-
-![Рисунок 7 — systemctl status nginx](img/6b-nginx-status.png)
-
-*Рисунок 7 — Статус службы nginx*
 
 ### Контрольный вопрос
 
@@ -179,11 +165,11 @@ ls -l /usr/share/nginx/html
 
 После этого сайт открылся в браузере по адресу `http://3.125.3.200/index.html`, ссылки между страницами работают.
 
-![Рисунок 8 — Сайт в браузере](img/7-site.png)
+![Рисунок 8 — Сайт в браузере](7-site.png)
 
 *Рисунок 8 — Статический сайт в браузере: главная страница со ссылками «О нас» и «Контакты»*
 
-![Рисунок 9 — scp и содержимое папки nginx](img/8-scp-ls.png)
+![Рисунок 9 — scp и содержимое папки nginx](8-scp-ls.png)
 
 *Рисунок 9 — Копирование файлов командой `scp` и вывод `ls -l /usr/share/nginx/html` (видны `index.html`, `about.html`, `contact.html`)*
 
@@ -205,7 +191,7 @@ aws ec2 stop-instances --instance-ids i-07e0526a734dd5f44 --region eu-central-1
 
 В выводе команды `CurrentState` стал `stopping` (предыдущее состояние `running`). Командой `describe-instances` было проверено, что экземпляр перешёл в состояние `stopped`.
 
-![Рисунок 10 — Остановка экземпляра](img/9-stop-instances.png)
+![Рисунок 10 — Остановка экземпляра](9-stop-instances.png)
 
 *Рисунок 10 — Остановка экземпляра командой AWS CLI в CloudShell и проверка состояния `stopped`*
 
